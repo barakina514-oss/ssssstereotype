@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Стоп-стереотип: как смотреть сериалы и не обманываться</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg-dark: #0d0d1a;
+      --bg-card: #161625;
+      --accent: #f7c948;
+      --accent2: #ff6b6b;
+      --accent3: #4ecdc4;
+      --text: #e8e8f0;
+      --text-muted: #9a9ab0;
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg-dark);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(247,201,72,.12) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 50%, rgba(255,107,107,.10) 0%, transparent 60%),
+        var(--bg-dark);
+    }
+
+    .hero__icon {
+      font-size: 80px;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-14px); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      max-width: 800px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero__subtitle {
+      margin-top: 18px;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 580px;
+    }
+
+    .hero__cta {
+      margin-top: 36px;
+      display: inline-block;
+      padding: 14px 38px;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: var(--bg-dark);
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .hero__cta:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 30px rgba(247,201,72,.35);
+    }
+
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 20px;
+    }
+
+    .section__title {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .section__lead {
+      text-align: center;
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto 60px;
+      font-size: 1.05rem;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid rgba(255,255,255,.06);
+      border-radius: var(--radius);
+      padding: 36px 30px 32px;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.45);
+      border-color: rgba(247,201,72,.18);
+    }
+
+    .card:hover::before { opacity: 1; }
+
+    .card__number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 18px;
+      color: var(--bg-dark);
+    }
+
+    .card:nth-child(1) .card__number { background: var(--accent); }
+    .card:nth-child(2) .card__number { background: var(--accent2); }
+    .card:nth-child(3) .card__number { background: var(--accent3); }
+    .card:nth-child(4) .card__number { background: #a78bfa; }
+    .card:nth-child(5) .card__number { background: #f472b6; }
+    .card:nth-child(6) .card__number { background: #34d399; }
+
+    .card__title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .card__text {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .banner {
+      margin: 48px auto 0;
+      max-width: 800px;
+      background: linear-gradient(135deg, rgba(247,201,72,.12), rgba(255,107,107,.10));
+      border: 1px solid rgba(247,201,72,.18);
+      border-radius: var(--radius);
+      padding: 36px 32px;
+      text-align: center;
+    }
+
+    .banner__emoji { font-size: 42px; margin-bottom: 12px; }
+    .banner__text {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .banner__text span { color: var(--accent); }
+
+    footer {
+      text-align: center;
+      padding: 48px 20px 36px;
+      color: var(--text-muted);
+      font-size: .85rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    @media (max-width: 600px) {
+      .cards { grid-template-columns: 1fr; }
+      .hero__icon { font-size: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <div class="hero__icon">🍿</div>
+    <h1><span>Стоп-стереотип</span><br>как смотреть сериалы и&nbsp;не&nbsp;обманываться</h1>
+    <p class="hero__subtitle">
+      Сериалы затягивают, но иногда подсовывают нам готовые шаблоны о жизни.
+      6 простых правил, которые помогут смотреть любимые шоу и думать своей головой.
+    </p>
+    <a href="#tips" class="hero__cta">Открыть памятку ↓</a>
+  </header>
+
+  <section class="section" id="tips">
+    <h2 class="section__title">🧠 6 советов осознанного зрителя</h2>
+    <p class="section__lead">
+      Каждый пункт — это маленький «стоп-кран» для стереотипов,
+      которые сериалы подкидывают нам незаметно.
+    </p>
+
+    <div class="cards">
+
+      <article class="card">
+        <div class="card__number">1</div>
+        <h3 class="card__title">🎭 Это вымысел, а не реальность</h3>
+        <p class="card__text">
+          Сценаристы упрощают жизнь, чтобы сюжет был динамичным и укладывался в серию.
+          Реальные люди и события куда запутаннее.
+          Не стоит принимать телевизионную картинку за инструкцию к жизни.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="card__number">2</div>
+        <h3 class="card__title">🔍 Следи за тем, как показывают людей</h3>
+        <p class="card__text">
+          Если все юристы в сериале хитрые, а полицейские — идеальные герои, это уже штамп.
+          Замечай такие повторы. В жизни характеры и профессии не делятся на «чёрное» и «белое».
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="card__number">3</div>
+        <h3 class="card__title">💔 Не путай драму с любовью</h3>
+        <p class="card__text">
+          Ревность, контроль и манипуляции в кино часто подают как «сильные чувства».
+          В реальности это просто нездоровые отношения.
+          Красивый кадр и грустная музыка не оправдывают плохое поведение.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="card__number">4</div>
+        <h3 class="card__title">📰 Не верь «фактам» на слово</h3>
+        <p class="card__text">
+          Создатели сериалов часто искажают науку, медицину или статистику ради эффектной сцены.
+          Если услышал громкое заявление вроде «учёные доказали…» — просто проверь его в интернете.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="card__number">5</div>
+        <h3 class="card__title">🗣 Замечай, кого здесь нет</h3>
+        <p class="card__text">
+          Подумай, чьи истории не показали или вывели на второй план.
+          Если ты видишь только одну точку зрения, значит, картина неполная.
+          Мир не вращается вокруг главного героя.
+        </p>
+      </article>
+
+      <article class="card">
+        <div class="card__number">6</div>
+        <h3 class="card__title">⏸ Остановись на пару минут после серии</h3>
+        <p class="card__text">
+          Спроси себя: что я почувствовал? Зачем авторы вызвали эту эмоцию?
+          Согласен ли я с тем, как всё показали?
+          Всего две минуты размышлений включают голову и возвращают контроль над восприятием.
+        </p>
+      </article>
+
+    </div>
+
+    <div class="banner">
+      <div class="banner__emoji">🎬</div>
+      <p class="banner__text">
+        Наслаждайся сериалами, но <span>не позволяй им думать за тебя</span>.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 · Стоп-стереотип · Сделано с ❤️ и здравым смыслом
+  </footer>
+
+</body>
+</html>
